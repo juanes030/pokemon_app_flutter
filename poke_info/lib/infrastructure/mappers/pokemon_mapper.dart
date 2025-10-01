@@ -10,7 +10,7 @@ class PokemonMapper {
         id: id,
         name: e.name,
         imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png",
-        types: [], // La lista solo trae nombre+url, no types
+        types: [],
       );
     }).toList();
   }

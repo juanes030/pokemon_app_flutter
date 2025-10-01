@@ -4,10 +4,8 @@ import 'package:poke_info/domain/entities/pokemon.dart';
 import 'package:poke_info/presentation/providers/pokemon_detail_provider.dart'; 
 
 class PokemonDetailScreen extends ConsumerWidget {
-  // Solo necesitamos el nombre para hacer la petición de detalles
   final String pokemonName; 
   
-  // Puedes opcionalmente pasar el objeto Pokemon básico 
   final Pokemon? basicPokemon; 
 
   const PokemonDetailScreen({
@@ -16,7 +14,6 @@ class PokemonDetailScreen extends ConsumerWidget {
     this.basicPokemon,
   });
 
-  // 🟢 Helper para el color (se mantiene igual)
   Color _backgroundColor(String? type) {
     if (type == null) return Colors.grey.shade300;
     switch (type.toLowerCase()) {
@@ -30,7 +27,6 @@ class PokemonDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 🧠 Se dispara la llamada a la API usando el nombre del Pokémon.
     final pokemonDetailsAsync = ref.watch(pokemonDetailProvider(pokemonName));
 
     return Scaffold(
@@ -43,10 +39,8 @@ class PokemonDetailScreen extends ConsumerWidget {
       ),
       
       body: pokemonDetailsAsync.when(
-        // ⏳ Estado de Carga
         loading: () => const Center(child: CircularProgressIndicator()),
         
-        // 🚨 Estado de Error
         error: (err, stack) {
           return Center(
             child: Padding(
@@ -59,7 +53,6 @@ class PokemonDetailScreen extends ConsumerWidget {
                   Text('Error al cargar detalles de $pokemonName: ${err.toString()}'),
                   ElevatedButton(
                     onPressed: () {
-                      // Reintenta invalidando el provider específico
                       ref.invalidate(pokemonDetailProvider(pokemonName));
                     },
                     child: const Text('Reintentar'),
@@ -70,7 +63,6 @@ class PokemonDetailScreen extends ConsumerWidget {
           );
         },
         
-        // ✨ Estado de Datos
         data: (Pokemon fullPokemon) {
           final primaryType = fullPokemon.types.isNotEmpty ? fullPokemon.types.first : null;
           final bgColor = _backgroundColor(primaryType);
@@ -86,7 +78,6 @@ class PokemonDetailScreen extends ConsumerWidget {
                   ),
                   child: Column(
                     children: [
-                      // 🖼 Imagen Principal con Hero tag
                       Hero( 
                         tag: 'pokemon-${fullPokemon.id}',
                         child: Image.network(
@@ -95,7 +86,6 @@ class PokemonDetailScreen extends ConsumerWidget {
                           fit: BoxFit.contain,
                         ),
                       ),
-                      // ... (Información básica y tipos, se mantiene igual)
                       Text(
                         'N°${fullPokemon.id.toString().padLeft(3, '0')}',
                         style: const TextStyle(fontSize: 18, color: Colors.white),
@@ -125,7 +115,6 @@ class PokemonDetailScreen extends ConsumerWidget {
                 ),
               ),
               
-              // 📊 Sección de Datos Detallados
               SliverPadding(
                 padding: const EdgeInsets.all(20),
                 sliver: SliverList(
@@ -134,22 +123,17 @@ class PokemonDetailScreen extends ConsumerWidget {
                     _DetailSection(
                       title: "Información Básica",
                       children: [
-                        // Se comprueba si los campos son nulos antes de intentar acceder
                         if (fullPokemon.height != null)
                           _DetailRow(
                             label: 'Altura', 
-                            // API devuelve dm, convertimos a metros (m)
                             value: '${(fullPokemon.height! / 10).toStringAsFixed(1)} m'
                           ),
                         if (fullPokemon.weight != null)
                           _DetailRow(
                             label: 'Peso', 
-                            // API devuelve hg, convertimos a kilogramos (kg)
                             value: '${(fullPokemon.weight! / 10).toStringAsFixed(1)} kg'
                           ),
                         
-                        // Muestra habilidades, asumiendo que el modelo Ability
-                        // tiene la propiedad 'name'.
                         if (fullPokemon.abilities != null && fullPokemon.abilities!.isNotEmpty)
                           _DetailRow(
                             label: 'Habilidades', 
@@ -165,7 +149,6 @@ class PokemonDetailScreen extends ConsumerWidget {
                         title: "Estadísticas Base",
                         children: fullPokemon.stats!
                           .map((stat) => _StatBar(
-                            // Se formatea el nombre de la estadística para que sea más legible (ej: HP, ATTACK)
                             label: stat.name.toUpperCase().replaceAll('-', ' '), 
                             value: stat.baseStat
                           )).toList(),
@@ -181,7 +164,6 @@ class PokemonDetailScreen extends ConsumerWidget {
   }
 }
 
-// Los widgets auxiliares (_DetailSection, _DetailRow, _StatBar) se mantienen igual
 
 class _DetailSection extends StatelessWidget {
 // ... (código anterior)
@@ -241,7 +223,7 @@ class _StatBar extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-            width: 90, // Aumentado ligeramente para nombres de estadísticas más largos
+            width: 90,
             child: Text(label, style: const TextStyle(fontWeight: FontWeight.w500)),
           ),
           const SizedBox(width: 10),
@@ -254,7 +236,6 @@ class _StatBar extends StatelessWidget {
             child: LinearProgressIndicator(
               value: value / maxStat,
               backgroundColor: Colors.grey[300],
-              // Usar colores condicionales ayuda a visualizar rápidamente el poder
               color: value > 100 ? Colors.green.shade400 : Colors.blue.shade400,
               minHeight: 8,
               borderRadius: BorderRadius.circular(4),

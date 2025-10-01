@@ -4,7 +4,6 @@ class PokemonStat {
 
   PokemonStat({required this.name, required this.baseStat});
 
-  // Método de mapeo de JSON (fromMap/fromJson)
   factory PokemonStat.fromMap(Map<String, dynamic> map) {
     final statMap = map['stat'] as Map<String, dynamic>;
     return PokemonStat(

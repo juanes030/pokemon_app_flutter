@@ -15,8 +15,8 @@ class OnboardingScreen extends StatelessWidget {
               "Accede a una amplia lista de Pokémon de todas las generaciones creadas por Nintendo",
           image: Image.asset("assets/images/onboarding1.png", height: 220),
           decoration: const PageDecoration(
-            imageFlex: 3, // controla cuánto espacio ocupa la imagen
-            bodyFlex: 2,  // controla cuánto espacio ocupa el texto
+            imageFlex: 3,
+            bodyFlex: 2,
             titleTextStyle: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -55,7 +55,7 @@ class OnboardingScreen extends StatelessWidget {
       },
       showNextButton: false,
       showSkipButton: false,
-      done: const SizedBox.shrink(), // ocultamos el botón Done por defecto
+      done: const SizedBox.shrink(),
       dotsDecorator: DotsDecorator(
         size: const Size(8, 8),
         activeSize: const Size(20, 8),
@@ -66,7 +66,6 @@ class OnboardingScreen extends StatelessWidget {
         ),
       ),
 
-      // Footer con botón personalizado
       globalFooter: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
         child: SizedBox(

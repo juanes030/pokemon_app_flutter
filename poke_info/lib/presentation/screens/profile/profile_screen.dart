@@ -19,7 +19,6 @@ class ProfileScreen extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Icono de perfil o medalla
               Icon(
                 Icons.person_pin_circle,
                 size: 90,

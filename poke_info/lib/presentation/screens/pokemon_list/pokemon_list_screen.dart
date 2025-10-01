@@ -47,12 +47,10 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
             ),
           ),
 
-          // 📋 Lista de pokémon
           Expanded(
             child: pokemonsAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
 
-              // 🚨 Error state personalizado
               error: (err, stack) {
                 return Center(
                   child: Padding(
@@ -143,13 +141,8 @@ class _PokemonCard extends ConsumerWidget {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
-              // 🎯 Paso 3: Pasa el nombre del Pokémon a la pantalla de detalle.
-              // Asumo que tienes importada la pantalla de detalle (PokemonDetailScreen)
-              // y que la definiste para aceptar 'pokemonName'.
               return PokemonDetailScreen(
                 pokemonName: pokemon.name,
-                // Opcional: Puedes pasar el objeto básico para mostrar
-                // el nombre/imagen inmediatamente, antes de que carguen los detalles.
                 basicPokemon: pokemon, 
               );
             },
@@ -204,7 +197,6 @@ class _PokemonCard extends ConsumerWidget {
               ),
             ),
       
-            // ❤️ Favorito + 📷 Imagen
             Column(
               children: [
                 IconButton(

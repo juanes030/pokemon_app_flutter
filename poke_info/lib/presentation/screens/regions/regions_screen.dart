@@ -19,14 +19,12 @@ class RegionsScreen extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Icono temático de mapa o viaje
               Icon(
                 Icons.travel_explore,
                 size: 90,
                 color: Colors.blueAccent.shade400,
               ),
               const SizedBox(height: 20),
-              // Título principal
               Text(
                 "¡Explorando nuevas tierras!",
                 textAlign: TextAlign.center,
@@ -37,7 +35,6 @@ class RegionsScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              // Mensaje de proximidad
               const Text(
                 "La base de datos de regiones de Kanto, Johto y más está en camino. ¡Vuelve pronto para planificar tu próxima aventura Pokémon!",
                 textAlign: TextAlign.center,
